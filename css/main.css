@@ -3,7 +3,7 @@
     margin-bottom: 15px;
 }
 
-.completado {
+.finalizada {
     text-decoration: line-through;
     font-style: italic;
     color: gray;
