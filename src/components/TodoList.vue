@@ -17,7 +17,7 @@
       <ul class="list-group">
         <li v-for="(tarefa, index) in tarefas" 
           class="list-group-item clearfix">
-          <p class="lead" v-bind:class="{finalizada: tarefa.completo}"> 
+          <p class="lead" v-bind:class="{finalizada: tarefa.completa}"> 
             {{tarefa.titulo}}
           </p>
           <input v-model="tarefa.titulo"
@@ -35,15 +35,15 @@
                       class="btn btn-default btn-xs">
                 <span class="glyphicon glyphicon-floppy-saved"></span>
               </button>
-              <button @click="tarefa.completo = true"
+              <button @click="editarEstadoTarefa(true, tarefa)"
                       class="btn btn-primary btn-xs">
                 <span class="glyphicon glyphicon-ok"></span>
               </button>
-              <button @click="tarefa.completo = false"
+              <button @click="editarEstadoTarefa(false, tarefa)"
                       class="btn btn-primary btn-xs">
                 <span class="glyphicon glyphicon-repeat"></span>
               </button>
-              <button @click="eliminarTarefa(index)"
+              <button @click="eliminarTarefa(tarefa)"
                 class="btn btn-danger btn-xs">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
@@ -53,7 +53,11 @@
       </ul>  
     </div>
 </template>
+
 <script>
+
+import firebase from 'firebase'
+
 export default {
   data () {
     return {
@@ -61,19 +65,30 @@ export default {
       editandoTarefa : null
     }
   },
+  ready(){
+      console.info('todo');
+  },
   props : ['tarefas'],
   methods : {
     adicionarTarefa : function (tarefa){
-      this.tarefas.unshift(
-        {titulo: tarefa, completa : false}
-      );
+      firebase.database().ref('tarefas/').push({
+            titulo: tarefa,
+            completa: false
+      });
       this.novaTarefa = null;
     },
-    eliminarTarefa : function(indice){
-      this.tarefas.splice(indice, 1);
+    eliminarTarefa : function(tarefa){
+      firebase.database().ref('tarefas/'+ tarefa['.key']).remove();
+    },
+    editarEstadoTarefa : function (estado, tarefa){
+      firebase.database().ref('tarefas/'+ tarefa['.key']).update({
+            completa: estado ? true : false,
+      });  
     },
     editarTarefa : function(tarefa){
-      console.info(tarefa);
+      firebase.database().ref('tarefas/'+ tarefa['.key']).update({
+            titulo: tarefa.titulo
+      });  
       this.editandoTarefa = null;
     }
   }

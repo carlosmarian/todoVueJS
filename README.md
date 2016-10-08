@@ -14,3 +14,11 @@ Instalando as dependências
 
 Rodando o projeto 
  npm run dev 
+
+Configurações do Firbase:
+ Acesse o site 
+ Faça seu registro
+ Crie um novo projeto
+
+ Instando o firebase no projeto:
+   npm install firebase vuefire --save
