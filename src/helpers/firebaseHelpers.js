@@ -1,13 +1,16 @@
 import firebase from 'firebase'
 
+
 export function fireInit(func) {
     //Configurações da base de dados.
 	var config = {
-        apiKey: "XXXXXXXXXXXXXXXXXXXXXXx",
-        authDomain: "XXXXXXXX.firebaseapp.com",
-        databaseURL: "https://XXXXXX.firebaseio.com",
-        storageBucket: "XXXXXXXX.appspot.com",
-        messagingSenderId: "XXXXXXXXX"
+        apiKey: "AIzaSyC6tEku5QgXDqP5GjK4ruAMV1MMsTngJRg",
+        authDomain: "vuefiretodo.firebaseapp.com",
+        databaseURL: "https://vuefiretodo.firebaseio.com",
+        storageBucket: "vuefiretodo.appspot.com",
+        messagingSenderId: "156276635439"
     }
-	firebase.initializeApp(config)
+	//firebase.initializeApp(config)
+
+    
 }
